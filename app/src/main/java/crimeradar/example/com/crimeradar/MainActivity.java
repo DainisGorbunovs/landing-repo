@@ -1,5 +1,6 @@
 package crimeradar.example.com.crimeradar;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // use this to start and trigger a service
+        Intent i= new Intent(getApplicationContext(), GeoWatchService.class);
+// potentially add data to the intent
+        i.putExtra("KEY1", "Value to be used by the service");
+        getApplicationContext().startService(i);
+
     }
 
 

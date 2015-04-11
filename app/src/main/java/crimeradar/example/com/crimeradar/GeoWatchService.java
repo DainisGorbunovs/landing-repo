@@ -9,8 +9,14 @@ public class GeoWatchService extends Service {
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        //TODO do something useful
+        return Service.START_STICKY;
+    }
+
+    @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        //TODO for communication return IBinder implementation
+        return null;
     }
 }
