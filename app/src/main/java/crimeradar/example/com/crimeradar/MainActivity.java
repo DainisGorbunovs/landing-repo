@@ -1,12 +1,16 @@
 package crimeradar.example.com.crimeradar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.BroadcastReceiver;
+import android.util.Log;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -31,7 +35,15 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
         }
 
+        //Register BroadcastReceiver
+        //to receive event from our service
+        LocationChangeReceiver locationChangeReceiver = new LocationChangeReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(GeoWatchService.LOCATION_CHANGE);
+        registerReceiver(locationChangeReceiver, intentFilter);
+
         getApplicationContext().startService(i);
+
     }
 
 
@@ -55,5 +67,16 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class LocationChangeReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            double lng = intent.getDoubleExtra("longitude", 0);
+            double lat = intent.getDoubleExtra("latitude", 0);
+
+
+        }
+
     }
 }

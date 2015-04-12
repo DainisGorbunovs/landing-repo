@@ -13,7 +13,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class GeoWatchService extends Service {
+    public static String LOCATION_CHANGE = "LOCATION_CHANGE";
     public GeoWatchService() {
+
     }
 
     @Override
@@ -53,6 +55,15 @@ public class GeoWatchService extends Service {
         public void onLocationChanged(Location location) {
             double lat = (double) (location.getLatitude());
             double lng = (double) (location.getLongitude());
+
+            Intent intent = new Intent();
+            intent.setAction(LOCATION_CHANGE);
+
+            intent.putExtra("longitude", lng);
+            intent.putExtra("latitude", lat);
+
+            sendBroadcast(intent);
+
             Log.i("Test latitude: ",String.valueOf(lat));
             Log.i("Test longitude: ", String.valueOf(lng));
         }
