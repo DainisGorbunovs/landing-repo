@@ -21,11 +21,14 @@ public class MainActivity extends ActionBarActivity {
         i.putExtra("KEY1", "Value to be used by the service");
 
         LocationManager locService = (LocationManager) getSystemService(LOCATION_SERVICE);
-        boolean enabled = locService.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if(!enabled)
+        boolean enabledGPS = locService.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean enabledNetwork = locService.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        boolean enabledManagers = enabledGPS || enabledNetwork;
+        if(!enabledManagers)
         {
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+                Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent1);
+                startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
         }
 
         getApplicationContext().startService(i);
