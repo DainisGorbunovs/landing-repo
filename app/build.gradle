@@ -6,10 +6,15 @@ android {
 
     defaultConfig {
         applicationId "crimeradar.example.com.crimeradar"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+    }
+    packagingOptions{
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
     buildTypes {
         release {
