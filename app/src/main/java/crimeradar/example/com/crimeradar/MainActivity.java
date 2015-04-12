@@ -1,6 +1,8 @@
 package crimeradar.example.com.crimeradar;
 
 import android.content.Intent;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,8 +19,16 @@ public class MainActivity extends ActionBarActivity {
         Intent i= new Intent(getApplicationContext(), GeoWatchService.class);
 // potentially add data to the intent
         i.putExtra("KEY1", "Value to be used by the service");
-        getApplicationContext().startService(i);
 
+        LocationManager locService = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean enabled = locService.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if(!enabled)
+        {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+
+        getApplicationContext().startService(i);
     }
 
 

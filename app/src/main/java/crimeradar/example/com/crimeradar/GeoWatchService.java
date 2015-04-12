@@ -20,11 +20,7 @@ public class GeoWatchService extends Service  implements LocationListener {
         //TODO do something useful
         LocationManager locService = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean enabled = locService.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if(!enabled)
-        {
-            intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
-        }
+        locService.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, this);
         return Service.START_STICKY;
     }
 
