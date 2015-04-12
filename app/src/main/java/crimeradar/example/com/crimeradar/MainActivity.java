@@ -12,8 +12,16 @@ import android.view.MenuItem;
 import android.content.BroadcastReceiver;
 import android.util.Log;
 
+import com.esri.android.map.MapView;
+import com.esri.android.toolkit.map.MapViewHelper;
+import com.esri.core.geometry.Geometry;
+import com.esri.core.geometry.MapGeometry;
+
 
 public class MainActivity extends ActionBarActivity {
+
+    private MapView mapView;
+    private MapViewHelper mvHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,9 @@ public class MainActivity extends ActionBarActivity {
 
         getApplicationContext().startService(i);
 
+        mapView = (MapView)findViewById(R.id.map);
+
+        mvHelper = new MapViewHelper(mapView);
     }
 
 
@@ -69,14 +80,22 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    
+
     private class LocationChangeReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
             double lng = intent.getDoubleExtra("longitude", 0);
             double lat = intent.getDoubleExtra("latitude", 0);
 
+            mapView.centerAt(lat,lng,true);
+
+            mvHelper.addMarkerGraphic(lat,lng,"You","snippet",null,getResources().getDrawable(R.drawable.pin),false,0);
+
 
         }
 
     }
+
+
 }

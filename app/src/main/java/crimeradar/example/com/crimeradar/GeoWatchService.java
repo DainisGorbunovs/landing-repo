@@ -24,7 +24,8 @@ public class GeoWatchService extends Service {
         Criteria locationCriteria = new Criteria();
         MyLocationListener locationListener = new MyLocationListener();
         LocationManager locService = (LocationManager) getSystemService(LOCATION_SERVICE);
-        locService.requestLocationUpdates(locService.getBestProvider(locationCriteria, true), 2000, 0, locationListener);
+        locService.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
+        locService.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, locationListener);
         return Service.START_STICKY;
     }
 
